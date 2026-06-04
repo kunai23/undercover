@@ -37,8 +37,9 @@
   .btn-primary { background: linear-gradient(135deg,#9333ea,#6366f1); color: white; }
   .btn-secondary { background: transparent; border: 1px solid var(--border-bright); color: var(--text); margin-top: 10px; }
   .btn-danger { background: rgba(248,113,113,0.15); border: 1px solid rgba(248,113,113,0.3); color: var(--danger); margin-top: 10px; }
+  .btn-amber { background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.25); color: var(--amber); margin-top: 10px; }
   .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-  .btn-sm { display: inline-block; width: auto; padding: 8px 16px; font-size: 13px; border-radius: 10px; }
+  .btn-sm { display: inline-block; width: auto; padding: 8px 16px; font-size: 13px; border-radius: 10px; margin-top: 0; }
   .divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
   .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   .divider span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
@@ -46,7 +47,7 @@
   .player-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; font-size: 13px; display: flex; align-items: center; gap: 8px; overflow: hidden; }
   .player-chip.host-chip { border-color: rgba(192,132,252,0.4); }
   .avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg,#9333ea,#6366f1); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; color: white; }
-  .avatar.done { background: linear-gradient(135deg,#16a34a,#059669); }
+  .avatar.done-av { background: linear-gradient(135deg,#16a34a,#059669); }
   .avatar.uc { background: linear-gradient(135deg,#ef4444,#b91c1c); }
   .avatar.mw { background: linear-gradient(135deg,#f59e0b,#b45309); }
   .name-overflow { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
@@ -58,8 +59,8 @@
   .role-word { font-family: var(--font-head); font-size: 36px; font-weight: 800; margin: 16px 0; color: var(--text); }
   .role-hint { font-size: 13px; color: var(--muted); line-height: 1.6; }
   .turn-banner { background: linear-gradient(90deg,rgba(147,51,234,0.2),rgba(99,102,241,0.2)); border: 1px solid rgba(147,51,234,0.3); border-radius: 14px; padding: 14px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
-  .turn-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; animation: pulse 1.5s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+  .turn-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.3} }
   .desc-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
   .desc-item:last-child { border-bottom: none; }
   .desc-text { font-size: 15px; color: var(--text); }
@@ -98,7 +99,6 @@
   .phase-describe { background: rgba(129,140,248,0.15); color: var(--accent2); border: 1px solid rgba(129,140,248,0.25); }
   .phase-vote { background: rgba(248,113,113,0.15); color: var(--danger); border: 1px solid rgba(248,113,113,0.25); }
   .connecting { text-align: center; padding: 40px; color: var(--muted); }
-  .connecting-dot { display: inline-block; animation: pulse 1s infinite; }
   .progress-dots { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
   .progress-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); transition: background 0.3s; }
   .progress-dot.done { background: var(--success); }
@@ -108,14 +108,22 @@
   .tab.active { background: var(--card); color: var(--text); }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
+  /* Custom words — NO oninput re-render, uses blur/change */
   .custom-word-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
-  .custom-word-row input { margin-bottom: 0 !important; flex: 1; }
+  .cw-input { background: var(--surface) !important; border: 1px solid var(--border) !important; border-radius: 12px !important; padding: 10px 14px !important; font-size: 14px !important; color: var(--text) !important; font-family: var(--font-body) !important; outline: none; transition: border-color 0.2s; margin-bottom: 0 !important; flex: 1; width: auto !important; }
+  .cw-input:focus { border-color: var(--accent) !important; }
+  .cw-input::placeholder { color: var(--muted); }
   .sep { font-size: 18px; color: var(--muted); flex-shrink: 0; }
   .del-btn { background: rgba(248,113,113,0.15); border: 1px solid rgba(248,113,113,0.25); color: var(--danger); border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 16px; flex-shrink: 0; }
   .desc-index-dots { display: flex; gap: 6px; margin-bottom: 12px; }
   .desc-index-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
   .desc-index-dot.done { background: var(--accent); }
   .word-end-card { text-align: center; padding: 32px 24px; background: linear-gradient(160deg,#1a1228,#0f0a1a); border: 1px solid rgba(192,132,252,0.3); border-radius: 24px; margin-bottom: 16px; }
+  /* Turn order list */
+  .turn-order { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .turn-chip { display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 20px; font-size: 12px; background: var(--surface); border: 1px solid var(--border); }
+  .turn-chip.active-turn { border-color: var(--accent); background: rgba(192,132,252,0.1); color: var(--accent); }
+  .turn-chip.spoken { opacity: 0.4; }
 </style>
 </head>
 <body>
@@ -143,7 +151,7 @@
 
 <!-- CONNECTING -->
 <div id="screen-connecting" class="screen">
-  <div class="card connecting"><div>Connexion en cours <span class="connecting-dot">…</span></div></div>
+  <div class="card connecting"><div>Connexion en cours…</div></div>
 </div>
 
 <!-- LOBBY -->
@@ -159,8 +167,8 @@
     <div id="lobby-players" class="players-grid"></div>
     <div id="lobby-host-controls" style="display:none">
       <div class="tabs" style="margin-top:16px">
-        <button class="tab active" onclick="switchTab('settings')">⚙️ Paramètres</button>
-        <button class="tab" onclick="switchTab('words')">📝 Mots perso</button>
+        <button class="tab active" id="tab-btn-settings" onclick="switchTab('settings')">⚙️ Paramètres</button>
+        <button class="tab" id="tab-btn-words" onclick="switchTab('words')">📝 Mots perso</button>
       </div>
       <div id="tab-settings" class="tab-panel active">
         <div class="settings-row">
@@ -176,22 +184,19 @@
           <input type="number" class="settings-input" id="set-wpg" value="3" min="1" max="20" onchange="updateSettings()">
         </div>
         <div class="settings-row">
-          <span class="settings-label">Descriptions par joueur/tour</span>
+          <span class="settings-label">Descriptions par joueur</span>
           <input type="number" class="settings-input" id="set-dpt" value="1" min="1" max="5" onchange="updateSettings()">
         </div>
       </div>
       <div id="tab-words" class="tab-panel">
-        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5;">
-          Ajoute tes propres paires. Les paires par défaut restent disponibles.
-        </div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5;">Ajoute tes propres paires. Les paires par défaut restent disponibles.</div>
         <div id="custom-words-list"></div>
-        <button class="btn btn-secondary btn-sm" style="width:auto;margin-top:8px" onclick="addCustomWordRow()">+ Ajouter une paire</button>
+        <button class="btn btn-secondary btn-sm" style="margin-top:8px" onclick="addCustomWordRow()">+ Ajouter une paire</button>
+        <button class="btn btn-primary btn-sm" style="margin-top:8px;margin-left:8px" onclick="saveCustomWords()">Sauvegarder</button>
       </div>
       <button class="btn btn-primary" id="start-btn" onclick="startGame()" style="margin-top:20px">Lancer la partie</button>
     </div>
-    <div id="lobby-waiting" style="display:none;text-align:center;padding-top:16px;font-size:14px;color:var(--muted);">
-      En attente que l'hôte lance la partie…
-    </div>
+    <div id="lobby-waiting" style="display:none;text-align:center;padding-top:16px;font-size:14px;color:var(--muted);">En attente que l'hôte lance la partie…</div>
   </div>
 </div>
 
@@ -214,6 +219,8 @@
     <span class="phase-tag phase-describe" style="margin-bottom:0">● Description — Tour <span id="describe-round">1</span></span>
     <div id="word-progress-dots" class="progress-dots" style="margin-bottom:0"></div>
   </div>
+
+  <!-- My turn -->
   <div class="card" id="my-turn-card" style="display:none">
     <div class="card-title">C'est ton tour !</div>
     <div id="my-word-reminder" style="font-size:13px;color:var(--muted);margin-bottom:12px;"></div>
@@ -222,6 +229,8 @@
     <div style="text-align:right;font-size:12px;color:var(--muted);margin-top:-8px;margin-bottom:8px;"><span id="char-count">0</span>/80</div>
     <button class="btn btn-primary" onclick="submitDescription()">Envoyer →</button>
   </div>
+
+  <!-- Others turn -->
   <div class="card" id="others-turn-card" style="display:none">
     <div class="turn-banner">
       <div class="turn-dot"></div>
@@ -231,18 +240,29 @@
       </div>
     </div>
   </div>
+
+  <!-- Already spoken -->
   <div class="card" id="wait-desc-card" style="display:none">
-    <div style="font-size:14px;color:var(--muted);text-align:center;padding:12px 0;">⏳ Tu as décrit. En attente des autres…</div>
+    <div style="font-size:14px;color:var(--muted);text-align:center;padding:12px 0;">⏳ Tu as déjà donné tes indices. En attente des autres…</div>
   </div>
+
+  <!-- Descriptions given so far -->
   <div id="descriptions-list" style="display:none">
     <div class="card">
-      <div class="card-title">Descriptions données</div>
+      <div class="card-title">Indices donnés</div>
       <div id="desc-items"></div>
     </div>
   </div>
+
+  <!-- Turn order -->
   <div class="card">
-    <div class="card-title">Joueurs en vie</div>
-    <div id="describe-players" class="players-grid"></div>
+    <div class="card-title">Ordre de passage</div>
+    <div id="turn-order-list" class="turn-order"></div>
+  </div>
+
+  <!-- Skip to vote — host only -->
+  <div id="skip-vote-btn-wrap" style="display:none">
+    <button class="btn btn-amber" onclick="skipToVote()">Passer au vote directement →</button>
   </div>
 </div>
 
@@ -253,11 +273,11 @@
     <div id="vote-progress-dots" class="progress-dots" style="margin-bottom:0"></div>
   </div>
   <div class="card">
-    <div class="card-title">Récap des descriptions</div>
+    <div class="card-title">Récap des indices</div>
     <div id="vote-desc-items"></div>
   </div>
   <div class="card">
-    <div class="card-title">Vote</div>
+    <div class="card-title">Voter contre</div>
     <div id="vote-players"></div>
     <button id="confirm-vote-btn" class="btn btn-danger" onclick="confirmVote()" disabled style="margin-top:16px">Voter</button>
     <div id="voted-notice" style="display:none;text-align:center;padding-top:12px;font-size:14px;color:var(--muted);">✓ Vote envoyé. En attente des autres…</div>
@@ -332,191 +352,454 @@
 
 <script>
 const WS_URL = "wss://undercover-server-e2nc.onrender.com";
-let ws=null,state=null,myId=null,myName="",roleAcknowledged=false,selectedVote=null;
-let customWordRows=[];
+let ws=null, state=null, myId=null, myName="", roleAcknowledged=false, selectedVote=null;
 
-function showError(id,msg){const el=document.getElementById(id);if(!el)return;el.textContent=msg;el.style.display="block";setTimeout(()=>el.style.display="none",4000);}
-function showScreen(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");}
+// Custom words stored locally — NOT synced on every keystroke
+let customWordRows = [];
 
-function connect(onOpen){
+function showError(id, msg) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg; el.style.display = "block";
+  setTimeout(() => el.style.display = "none", 4000);
+}
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+function esc(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function connect(onOpen) {
   showScreen("screen-connecting");
-  ws=new WebSocket(WS_URL);
-  ws.onopen=onOpen;
-  ws.onmessage=e=>handleMessage(JSON.parse(e.data));
-  ws.onclose=()=>{if(!state||state.phase==="lobby"){showError("error-home","Connexion perdue.");showScreen("screen-home");}};
-  ws.onerror=()=>{showError("error-home","Impossible de se connecter.");showScreen("screen-home");};
+  ws = new WebSocket(WS_URL);
+  ws.onopen = onOpen;
+  ws.onmessage = e => handleMessage(JSON.parse(e.data));
+  ws.onclose = () => { if (!state || state.phase === "lobby") { showError("error-home","Connexion perdue."); showScreen("screen-home"); } };
+  ws.onerror = () => { showError("error-home","Impossible de se connecter."); showScreen("screen-home"); };
 }
 
-function createRoom(){const name=document.getElementById("create-name").value.trim();if(!name){showError("error-home","Entre ton pseudo.");return;}myName=name;connect(()=>ws.send(JSON.stringify({type:"create_room",name})));}
-function joinRoom(){const name=document.getElementById("join-name").value.trim();const code=document.getElementById("join-code").value.trim().toUpperCase();if(!name){showError("error-home","Entre ton pseudo.");return;}if(!code){showError("error-home","Entre un code.");return;}myName=name;connect(()=>ws.send(JSON.stringify({type:"join_room",name,code})));}
-
-function handleMessage(msg){
-  if(msg.type==="error"){["error-home","error-lobby","error-describe"].forEach(id=>showError(id,msg.message));if(!myId)showScreen("screen-home");return;}
-  if(msg.type==="room_state"){if(!myId)myId=msg.players.find(p=>p.name===myName)?.id;state=msg;renderState();}
+function createRoom() {
+  const name = document.getElementById("create-name").value.trim();
+  if (!name) { showError("error-home","Entre ton pseudo."); return; }
+  myName = name;
+  connect(() => ws.send(JSON.stringify({ type:"create_room", name })));
 }
 
-function renderState(){
-  if(!state)return;
-  const phase=state.phase,isHost=state.hostId===myId,me=state.players.find(p=>p.id===myId);
-  if(phase==="lobby"){renderLobby(isHost);return;}
-  if((phase==="describe"||phase==="vote"||phase==="mrwhite_guess")&&!roleAcknowledged){renderRole();return;}
-  if(phase==="describe"){renderDescribe(me);return;}
-  if(phase==="vote"){renderVote(me);return;}
-  if(phase==="mrwhite_guess"){renderMrWhiteGuess(me);return;}
-  if(phase==="word_end"){renderWordEnd(isHost);return;}
-  if(phase==="end"){renderEnd(isHost);return;}
+function joinRoom() {
+  const name = document.getElementById("join-name").value.trim();
+  const code = document.getElementById("join-code").value.trim().toUpperCase();
+  if (!name) { showError("error-home","Entre ton pseudo."); return; }
+  if (!code) { showError("error-home","Entre un code."); return; }
+  myName = name;
+  connect(() => ws.send(JSON.stringify({ type:"join_room", name, code })));
 }
 
-function renderLobby(isHost){
+function handleMessage(msg) {
+  if (msg.type === "error") {
+    ["error-home","error-lobby","error-describe"].forEach(id => showError(id, msg.message));
+    if (!myId) showScreen("screen-home");
+    return;
+  }
+  if (msg.type === "room_state") {
+    if (!myId) myId = msg.players.find(p => p.name === myName)?.id;
+    state = msg;
+    renderState();
+  }
+}
+
+function renderState() {
+  if (!state) return;
+  const phase = state.phase, isHost = state.hostId === myId;
+  const me = state.players.find(p => p.id === myId);
+  if (phase === "lobby") { renderLobby(isHost); return; }
+  if ((phase === "describe" || phase === "vote" || phase === "mrwhite_guess") && !roleAcknowledged) { renderRole(); return; }
+  if (phase === "describe") { renderDescribe(me, isHost); return; }
+  if (phase === "vote") { renderVote(me); return; }
+  if (phase === "mrwhite_guess") { renderMrWhiteGuess(me); return; }
+  if (phase === "word_end") { renderWordEnd(isHost); return; }
+  if (phase === "end") { renderEnd(isHost); return; }
+}
+
+// ---- LOBBY ----
+function renderLobby(isHost) {
   showScreen("screen-lobby");
-  document.getElementById("lobby-code").textContent=state.code;
-  document.getElementById("lobby-count").textContent=state.players.length;
-  document.getElementById("lobby-players").innerHTML=state.players.map(p=>`<div class="player-chip ${p.id===state.hostId?'host-chip':''}"><div class="avatar">${p.name.substring(0,2).toUpperCase()}</div><span class="name-overflow">${esc(p.name)}</span></div>`).join('');
-  if(isHost){
-    document.getElementById("lobby-host-controls").style.display="block";
-    document.getElementById("lobby-waiting").style.display="none";
-    document.getElementById("set-uc").value=state.settings?.nbUndercover??1;
-    document.getElementById("set-mw").value=state.settings?.nbMrWhite??0;
-    document.getElementById("set-wpg").value=state.settings?.wordsPerGame??3;
-    document.getElementById("set-dpt").value=state.settings?.descriptionsPerTurn??1;
-    document.getElementById("start-btn").disabled=state.players.length<3;
-    renderCustomWords();
-  }else{
-    document.getElementById("lobby-host-controls").style.display="none";
-    document.getElementById("lobby-waiting").style.display="block";
+  document.getElementById("lobby-code").textContent = state.code;
+  document.getElementById("lobby-count").textContent = state.players.length;
+  document.getElementById("lobby-players").innerHTML = state.players.map(p =>
+    `<div class="player-chip ${p.id===state.hostId?'host-chip':''}">
+      <div class="avatar">${p.name.substring(0,2).toUpperCase()}</div>
+      <span class="name-overflow">${esc(p.name)}</span>
+    </div>`).join('');
+  if (isHost) {
+    document.getElementById("lobby-host-controls").style.display = "block";
+    document.getElementById("lobby-waiting").style.display = "none";
+    document.getElementById("set-uc").value = state.settings?.nbUndercover ?? 1;
+    document.getElementById("set-mw").value = state.settings?.nbMrWhite ?? 0;
+    document.getElementById("set-wpg").value = state.settings?.wordsPerGame ?? 3;
+    document.getElementById("set-dpt").value = state.settings?.descriptionsPerTurn ?? 1;
+    document.getElementById("start-btn").disabled = state.players.length < 3;
+    // Only init custom words from server if we haven't edited locally yet
+    if (customWordRows.length === 0 && state.customWords?.length > 0) {
+      customWordRows = state.customWords.map(p => ({ w1: p[0], w2: p[1] }));
+      renderCustomWordsList();
+    }
+  } else {
+    document.getElementById("lobby-host-controls").style.display = "none";
+    document.getElementById("lobby-waiting").style.display = "block";
   }
 }
 
-function copyCode(){navigator.clipboard?.writeText(state?.code);const el=document.getElementById("lobby-code");el.style.borderColor="var(--success)";setTimeout(()=>el.style.borderColor="",1500);}
-
-function switchTab(name){
-  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",["settings","words"][i]===name));
-  document.getElementById("tab-settings").classList.toggle("active",name==="settings");
-  document.getElementById("tab-words").classList.toggle("active",name==="words");
+function copyCode() {
+  navigator.clipboard?.writeText(state?.code);
+  const el = document.getElementById("lobby-code");
+  el.style.borderColor = "var(--success)";
+  setTimeout(() => el.style.borderColor = "", 1500);
 }
 
-function updateSettings(){
-  if(!ws||state?.hostId!==myId)return;
-  ws.send(JSON.stringify({type:"update_settings",nbUndercover:parseInt(document.getElementById("set-uc").value)||1,nbMrWhite:parseInt(document.getElementById("set-mw").value)||0,wordsPerGame:parseInt(document.getElementById("set-wpg").value)||3,descriptionsPerTurn:parseInt(document.getElementById("set-dpt").value)||1}));
+function switchTab(name) {
+  document.getElementById("tab-btn-settings").classList.toggle("active", name === "settings");
+  document.getElementById("tab-btn-words").classList.toggle("active", name === "words");
+  document.getElementById("tab-settings").classList.toggle("active", name === "settings");
+  document.getElementById("tab-words").classList.toggle("active", name === "words");
 }
 
-function renderCustomWords(){
-  if(state?.customWords?.length>0&&customWordRows.length===0)customWordRows=state.customWords.map(p=>({w1:p[0],w2:p[1]}));
-  const list=document.getElementById("custom-words-list");
-  if(!list)return;
-  list.innerHTML=customWordRows.map((row,i)=>`<div class="custom-word-row"><input type="text" placeholder="Mot civils" value="${esc(row.w1)}" maxlength="30" oninput="customWordRows[${i}].w1=this.value;syncCustomWords()"><span class="sep">↔</span><input type="text" placeholder="Mot undercover" value="${esc(row.w2)}" maxlength="30" oninput="customWordRows[${i}].w2=this.value;syncCustomWords()"><button class="del-btn" onclick="removeCustomWord(${i})">×</button></div>`).join('');
+function updateSettings() {
+  if (!ws || state?.hostId !== myId) return;
+  ws.send(JSON.stringify({
+    type: "update_settings",
+    nbUndercover: parseInt(document.getElementById("set-uc").value)||1,
+    nbMrWhite: parseInt(document.getElementById("set-mw").value)||0,
+    wordsPerGame: parseInt(document.getElementById("set-wpg").value)||3,
+    descriptionsPerTurn: parseInt(document.getElementById("set-dpt").value)||1,
+  }));
 }
 
-function addCustomWordRow(){customWordRows.push({w1:'',w2:''});renderCustomWords();}
-function removeCustomWord(i){customWordRows.splice(i,1);renderCustomWords();syncCustomWords();}
-function syncCustomWords(){if(!ws||state?.hostId!==myId)return;const pairs=customWordRows.filter(r=>r.w1&&r.w2).map(r=>[r.w1,r.w2]);ws.send(JSON.stringify({type:"update_custom_words",pairs}));}
-function startGame(){syncCustomWords();ws.send(JSON.stringify({type:"start_game"}));}
-
-function makeProgressDots(containerId){
-  const el=document.getElementById(containerId);if(!el||!state)return;
-  const total=state.totalWords||state.settings?.wordsPerGame||1;
-  const current=state.currentWordIndex||0;
-  el.innerHTML=Array.from({length:total},(_,i)=>`<div class="progress-dot ${i<current?'done':i===current?'current':''}"></div>`).join('');
+// ---- CUSTOM WORDS — no re-render on keystroke ----
+function renderCustomWordsList() {
+  const list = document.getElementById("custom-words-list");
+  if (!list) return;
+  // Build HTML but DON'T bind oninput — use data-index and read on save
+  list.innerHTML = customWordRows.map((row, i) =>
+    `<div class="custom-word-row" id="cwr-${i}">
+      <input type="text" class="cw-input" placeholder="Mot civils" value="${esc(row.w1)}" maxlength="30" data-idx="${i}" data-side="w1">
+      <span class="sep">↔</span>
+      <input type="text" class="cw-input" placeholder="Mot undercover" value="${esc(row.w2)}" maxlength="30" data-idx="${i}" data-side="w2">
+      <button class="del-btn" onclick="removeCustomWord(${i})">×</button>
+    </div>`
+  ).join('');
 }
 
-function renderRole(){
-  showScreen("screen-role");roleAcknowledged=false;
-  const role=state.myRole;if(!role)return;
-  const card=document.getElementById("role-card"),icon=document.getElementById("role-icon"),name=document.getElementById("role-name"),word=document.getElementById("role-word"),hint=document.getElementById("role-hint");
-  if(role.isMrWhite){card.className="role-reveal mrwhite";icon.textContent="🤍";name.textContent="Ton rôle";name.style.color="var(--amber)";word.textContent="???";hint.textContent="Tu es Mr White — tu n'as PAS de mot. Écoute et improvise !";}
-  else{card.className="role-reveal mystery";icon.textContent="🎭";name.textContent="Ton mot secret";name.style.color="var(--accent2)";word.textContent=role.word;hint.textContent="Décris ce mot sans le dire. Est-ce que les autres ont le même mot que toi ?";}
-  const current=(state.currentWordIndex||0)+1,total=state.totalWords||state.settings?.wordsPerGame||1;
-  document.getElementById("word-progress-display").textContent=`Mot ${current} / ${total}`;
+function addCustomWordRow() {
+  customWordRows.push({ w1: '', w2: '' });
+  renderCustomWordsList();
+  // Focus the first input of the new row
+  const rows = document.querySelectorAll(".cw-input");
+  if (rows.length >= 2) rows[rows.length - 2].focus();
 }
-function acknowledgeRole(){roleAcknowledged=true;renderState();}
 
-function renderDescribe(me){
-  showScreen("screen-describe");makeProgressDots("word-progress-dots");
-  document.getElementById("describe-round").textContent=state.descriptionRound||1;
-  const isMeTurn=state.currentTurn===myId,descriptionsPerTurn=state.settings?.descriptionsPerTurn||1;
-  const myDescs=state.descriptions?.[myId],myDescCount=myDescs?.entries?.length||0,alreadyDone=myDescCount>=descriptionsPerTurn;
-  const alive=me&&me.alive;
-  document.getElementById("my-turn-card").style.display=(isMeTurn&&alive&&!alreadyDone)?"block":"none";
-  document.getElementById("others-turn-card").style.display=(!isMeTurn&&alive&&!alreadyDone)?"block":"none";
-  document.getElementById("wait-desc-card").style.display=(alive&&alreadyDone)?"block":"none";
-  if(isMeTurn&&alive&&!alreadyDone){
-    const role=state.myRole,reminder=document.getElementById("my-word-reminder");
-    if(role?.isMrWhite)reminder.textContent="🤍 Tu n'as pas de mot.";
-    else if(role?.word)reminder.textContent=`Ton mot : « ${role.word} »`;
-    document.getElementById("desc-index-dots").innerHTML=Array.from({length:descriptionsPerTurn},(_,i)=>`<div class="desc-index-dot ${i<myDescCount?'done':''}"></div>`).join('');
-    document.getElementById("desc-input").placeholder=`Indice ${myDescCount+1}/${descriptionsPerTurn}…`;
-    document.getElementById("desc-input").value="";document.getElementById("char-count").textContent="0";
-    document.getElementById("desc-input").oninput=()=>document.getElementById("char-count").textContent=document.getElementById("desc-input").value.length;
+function removeCustomWord(i) {
+  // Read current values before removing
+  readCustomWordsFromDOM();
+  customWordRows.splice(i, 1);
+  renderCustomWordsList();
+}
+
+function readCustomWordsFromDOM() {
+  document.querySelectorAll(".cw-input").forEach(input => {
+    const idx = parseInt(input.dataset.idx);
+    const side = input.dataset.side;
+    if (!isNaN(idx) && customWordRows[idx]) customWordRows[idx][side] = input.value;
+  });
+}
+
+function saveCustomWords() {
+  readCustomWordsFromDOM();
+  const pairs = customWordRows.filter(r => r.w1 && r.w2).map(r => [r.w1, r.w2]);
+  ws.send(JSON.stringify({ type: "update_custom_words", pairs }));
+  // Visual feedback
+  const btn = event.target;
+  btn.textContent = "✓ Sauvegardé !";
+  setTimeout(() => btn.textContent = "Sauvegarder", 1500);
+}
+
+function startGame() {
+  readCustomWordsFromDOM();
+  const pairs = customWordRows.filter(r => r.w1 && r.w2).map(r => [r.w1, r.w2]);
+  if (pairs.length > 0) ws.send(JSON.stringify({ type: "update_custom_words", pairs }));
+  ws.send(JSON.stringify({ type: "start_game" }));
+}
+
+// ---- PROGRESS DOTS ----
+function makeProgressDots(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el || !state) return;
+  const total = state.totalWords || state.settings?.wordsPerGame || 1;
+  const current = state.currentWordIndex || 0;
+  el.innerHTML = Array.from({ length: total }, (_, i) =>
+    `<div class="progress-dot ${i < current ? 'done' : i === current ? 'current' : ''}"></div>`
+  ).join('');
+}
+
+// ---- ROLE REVEAL ----
+function renderRole() {
+  showScreen("screen-role");
+  roleAcknowledged = false;
+  const role = state.myRole;
+  if (!role) return;
+  const card = document.getElementById("role-card");
+  if (role.isMrWhite) {
+    card.className = "role-reveal mrwhite";
+    document.getElementById("role-icon").textContent = "🤍";
+    document.getElementById("role-name").textContent = "Ton rôle";
+    document.getElementById("role-name").style.color = "var(--amber)";
+    document.getElementById("role-word").textContent = "???";
+    document.getElementById("role-hint").textContent = "Tu es Mr White — tu n'as PAS de mot. Écoute les autres et improvise !";
+  } else {
+    card.className = "role-reveal mystery";
+    document.getElementById("role-icon").textContent = "🎭";
+    document.getElementById("role-name").textContent = "Ton mot secret";
+    document.getElementById("role-name").style.color = "var(--accent2)";
+    document.getElementById("role-word").textContent = role.word;
+    document.getElementById("role-hint").textContent = "Décris ce mot sans le dire. Est-ce que les autres ont le même mot que toi ?";
   }
-  const turnPlayer=state.players.find(p=>p.id===state.currentTurn);
-  document.getElementById("current-turn-name").textContent=turnPlayer?.name||"…";
-  const descs=state.descriptions||{},descEntries=Object.entries(descs);
-  if(descEntries.length>0){
-    document.getElementById("descriptions-list").style.display="block";
-    document.getElementById("desc-items").innerHTML=descEntries.map(([pid,d])=>d.entries.map((txt,i)=>`<div class="desc-item"><div class="avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0">${d.name.substring(0,2).toUpperCase()}</div><div><div class="desc-text">${esc(txt)}</div><div class="desc-author">${esc(d.name)}${d.entries.length>1?' ('+(i+1)+')':''}</div></div></div>`).join('')).join('');
-  }else{document.getElementById("descriptions-list").style.display="none";}
-  document.getElementById("describe-players").innerHTML=state.players.filter(p=>p.alive).map(p=>{const d=descs[p.id],done=(d?.entries?.length||0)>=descriptionsPerTurn;return`<div class="player-chip"><div class="avatar ${done?'done':''}">${p.name.substring(0,2).toUpperCase()}</div><span class="name-overflow">${esc(p.name)}</span></div>`;}).join('');
+  const current = (state.currentWordIndex || 0) + 1;
+  const total = state.totalWords || state.settings?.wordsPerGame || 1;
+  document.getElementById("word-progress-display").textContent = `Mot ${current} / ${total}`;
 }
-function submitDescription(){const val=document.getElementById("desc-input").value.trim();if(!val)return;ws.send(JSON.stringify({type:"submit_description",description:val}));document.getElementById("desc-input").value="";document.getElementById("char-count").textContent="0";}
 
-function renderVote(me){
-  showScreen("screen-vote");makeProgressDots("vote-progress-dots");
-  const descs=state.descriptions||{};
-  document.getElementById("vote-desc-items").innerHTML=Object.entries(descs).map(([pid,d])=>d.entries.map((txt,i)=>`<div class="desc-item"><div class="avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0">${d.name.substring(0,2).toUpperCase()}</div><div><div class="desc-text">${esc(txt)}</div><div class="desc-author">${esc(d.name)}${d.entries.length>1?' ('+(i+1)+')':''}</div></div></div>`).join('')).join('');
-  const meAlive=me&&me.alive,alreadyVoted=me&&me.voted;
-  const voteCounts={};if(state.votes)Object.values(state.votes).forEach(t=>{voteCounts[t]=(voteCounts[t]||0)+1;});
-  const aliveCount=state.players.filter(p=>p.alive).length;
-  document.getElementById("vote-players").innerHTML=state.players.filter(p=>p.alive).map(p=>{
-    const isSelf=p.id===myId,isSelected=selectedVote===p.id,votes=voteCounts[p.id]||0,pct=aliveCount>0?(votes/aliveCount*100):0;
-    return`<div class="vote-player ${isSelf?'self':''} ${isSelected?'selected':''}" onclick="${!isSelf&&!alreadyVoted&&meAlive?`selectVote('${p.id}')`:''}">`+
-      `<div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="width:32px;height:32px;font-size:11px">${p.name.substring(0,2).toUpperCase()}</div><span style="font-size:14px">${esc(p.name)}</span></div>`+
-      `<div style="font-size:12px;color:var(--muted)">${votes>0?votes+' vote'+(votes>1?'s':''):''}</div></div>`+
-      `<div class="vote-count-bar"><div class="vote-count-fill" style="width:${pct}%"></div></div>`;
+function acknowledgeRole() { roleAcknowledged = true; renderState(); }
+
+// ---- DESCRIBE ----
+function renderDescribe(me, isHost) {
+  showScreen("screen-describe");
+  makeProgressDots("word-progress-dots");
+  document.getElementById("describe-round").textContent = state.descriptionRound || 1;
+
+  const dpt = state.settings?.descriptionsPerTurn || 1;
+  const isMeTurn = state.currentTurn === myId;
+  const myCount = state.descCounts?.[myId] || 0;
+  const alreadyDone = myCount >= dpt;
+  const alive = me && me.alive;
+
+  document.getElementById("my-turn-card").style.display = (isMeTurn && alive && !alreadyDone) ? "block" : "none";
+  document.getElementById("others-turn-card").style.display = (!isMeTurn && alive && !alreadyDone) ? "block" : "none";
+  document.getElementById("wait-desc-card").style.display = (alive && alreadyDone) ? "block" : "none";
+
+  // Skip button for host
+  document.getElementById("skip-vote-btn-wrap").style.display = isHost ? "block" : "none";
+
+  if (isMeTurn && alive && !alreadyDone) {
+    const role = state.myRole;
+    const reminder = document.getElementById("my-word-reminder");
+    reminder.textContent = role?.isMrWhite ? "🤍 Tu n'as pas de mot." : (role?.word ? `Ton mot : « ${role.word} »` : "");
+    // Index dots
+    document.getElementById("desc-index-dots").innerHTML = Array.from({ length: dpt }, (_, i) =>
+      `<div class="desc-index-dot ${i < myCount ? 'done' : ''}"></div>`
+    ).join('');
+    document.getElementById("desc-input").placeholder = `Indice ${myCount + 1}/${dpt}…`;
+    document.getElementById("desc-input").value = "";
+    document.getElementById("char-count").textContent = "0";
+    document.getElementById("desc-input").oninput = () =>
+      document.getElementById("char-count").textContent = document.getElementById("desc-input").value.length;
+  }
+
+  const turnPlayer = state.players.find(p => p.id === state.currentTurn);
+  document.getElementById("current-turn-name").textContent = turnPlayer?.name || "…";
+
+  // Descriptions list
+  const descs = state.descriptions || {};
+  const descEntries = Object.entries(descs);
+  if (descEntries.length > 0) {
+    document.getElementById("descriptions-list").style.display = "block";
+    document.getElementById("desc-items").innerHTML = descEntries.flatMap(([pid, d]) =>
+      d.entries.map((txt, i) => `
+        <div class="desc-item">
+          <div class="avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0">${d.name.substring(0,2).toUpperCase()}</div>
+          <div>
+            <div class="desc-text">${esc(txt)}</div>
+            <div class="desc-author">${esc(d.name)}${d.entries.length > 1 ? ' (' + (i+1) + ')' : ''}</div>
+          </div>
+        </div>`)
+    ).join('');
+  } else {
+    document.getElementById("descriptions-list").style.display = "none";
+  }
+
+  // Turn order chips
+  const alivePlayers = state.players.filter(p => p.alive);
+  const counts = state.descCounts || {};
+  document.getElementById("turn-order-list").innerHTML = alivePlayers.map(p => {
+    const c = counts[p.id] || 0;
+    const isActive = p.id === state.currentTurn;
+    const isDone = c >= dpt;
+    return `<div class="turn-chip ${isActive ? 'active-turn' : ''} ${isDone ? 'spoken' : ''}">
+      <div class="avatar" style="width:20px;height:20px;font-size:9px">${p.name.substring(0,2).toUpperCase()}</div>
+      <span>${esc(p.name)}</span>
+      ${dpt > 1 ? `<span style="color:var(--muted);font-size:11px">${c}/${dpt}</span>` : ''}
+    </div>`;
   }).join('');
-  const btn=document.getElementById("confirm-vote-btn"),notice=document.getElementById("voted-notice");
-  if(!meAlive||alreadyVoted){btn.style.display="none";notice.style.display=alreadyVoted?"block":"none";}
-  else{btn.style.display="block";btn.disabled=!selectedVote;notice.style.display="none";}
 }
-function selectVote(id){if(state.players.find(p=>p.id===myId)?.voted)return;selectedVote=id;renderVote(state.players.find(p=>p.id===myId));}
-function confirmVote(){if(!selectedVote)return;ws.send(JSON.stringify({type:"vote",targetId:selectedVote}));selectedVote=null;}
 
-function renderMrWhiteGuess(me){showScreen("screen-mrwhite");const isMe=me&&me.id===state.mrWhiteId;document.getElementById("mrwhite-guess-form").style.display=isMe?"block":"none";document.getElementById("mrwhite-wait").style.display=isMe?"none":"block";}
-function submitMrWhiteGuess(){const guess=document.getElementById("mrwhite-guess").value.trim();if(!guess)return;ws.send(JSON.stringify({type:"mrwhite_guess",guess}));}
+function submitDescription() {
+  const val = document.getElementById("desc-input").value.trim();
+  if (!val) return;
+  ws.send(JSON.stringify({ type: "submit_description", description: val }));
+  document.getElementById("desc-input").value = "";
+  document.getElementById("char-count").textContent = "0";
+}
 
-function renderWordEnd(isHost){
+function skipToVote() {
+  ws.send(JSON.stringify({ type: "skip_to_vote" }));
+}
+
+// ---- VOTE ----
+function renderVote(me) {
+  showScreen("screen-vote");
+  makeProgressDots("vote-progress-dots");
+
+  const descs = state.descriptions || {};
+  document.getElementById("vote-desc-items").innerHTML = Object.entries(descs).flatMap(([pid, d]) =>
+    d.entries.map((txt, i) => `
+      <div class="desc-item">
+        <div class="avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0">${d.name.substring(0,2).toUpperCase()}</div>
+        <div>
+          <div class="desc-text">${esc(txt)}</div>
+          <div class="desc-author">${esc(d.name)}${d.entries.length > 1 ? ' (' + (i+1) + ')' : ''}</div>
+        </div>
+      </div>`)
+  ).join('');
+
+  const meAlive = me && me.alive, alreadyVoted = me && me.voted;
+  const voteCounts = {};
+  if (state.votes) Object.values(state.votes).forEach(t => { voteCounts[t] = (voteCounts[t]||0) + 1; });
+  const aliveCount = state.players.filter(p => p.alive).length;
+
+  document.getElementById("vote-players").innerHTML = state.players.filter(p => p.alive).map(p => {
+    const isSelf = p.id === myId, isSelected = selectedVote === p.id;
+    const votes = voteCounts[p.id] || 0, pct = aliveCount > 0 ? (votes / aliveCount * 100) : 0;
+    return `<div class="vote-player ${isSelf?'self':''} ${isSelected?'selected':''}"
+         onclick="${!isSelf && !alreadyVoted && meAlive ? `selectVote('${p.id}')` : ''}">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="avatar" style="width:32px;height:32px;font-size:11px">${p.name.substring(0,2).toUpperCase()}</div>
+        <span style="font-size:14px">${esc(p.name)}</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted)">${votes > 0 ? votes + ' vote' + (votes>1?'s':'') : ''}</div>
+    </div>
+    <div class="vote-count-bar"><div class="vote-count-fill" style="width:${pct}%"></div></div>`;
+  }).join('');
+
+  const btn = document.getElementById("confirm-vote-btn"), notice = document.getElementById("voted-notice");
+  if (!meAlive || alreadyVoted) { btn.style.display = "none"; notice.style.display = alreadyVoted ? "block" : "none"; }
+  else { btn.style.display = "block"; btn.disabled = !selectedVote; notice.style.display = "none"; }
+}
+
+function selectVote(id) {
+  if (state.players.find(p => p.id === myId)?.voted) return;
+  selectedVote = id;
+  renderVote(state.players.find(p => p.id === myId));
+}
+function confirmVote() {
+  if (!selectedVote) return;
+  ws.send(JSON.stringify({ type: "vote", targetId: selectedVote }));
+  selectedVote = null;
+}
+
+// ---- MR WHITE ----
+function renderMrWhiteGuess(me) {
+  showScreen("screen-mrwhite");
+  const isMe = me && me.id === state.mrWhiteId;
+  document.getElementById("mrwhite-guess-form").style.display = isMe ? "block" : "none";
+  document.getElementById("mrwhite-wait").style.display = isMe ? "none" : "block";
+}
+function submitMrWhiteGuess() {
+  const guess = document.getElementById("mrwhite-guess").value.trim();
+  if (!guess) return;
+  ws.send(JSON.stringify({ type: "mrwhite_guess", guess }));
+}
+
+// ---- WORD END ----
+function renderWordEnd(isHost) {
   showScreen("screen-word-end");
-  const w=state.wordWinner,emoji=document.getElementById("word-end-emoji"),title=document.getElementById("word-end-title"),sub=document.getElementById("word-end-sub");
-  if(w==="civil"){emoji.textContent="🎉";title.textContent="Les Civils gagnent ce round !";title.style.color="var(--success)";sub.textContent="L'imposteur a été démasqué.";}
-  else if(w==="mrwhite"){emoji.textContent="🤍";title.textContent="Mr White a deviné !";title.style.color="var(--amber)";sub.textContent="Il a trouvé le mot secret.";}
-  else{emoji.textContent="🕵️";title.textContent="L'Undercover survit !";title.style.color="var(--danger)";sub.textContent="Les imposteurs ont tenu.";}
-  document.getElementById("we-civil-word").textContent=state.civilWord||"—";
-  document.getElementById("we-uc-word").textContent=state.undercoverWord||"—";
-  const sorted=[...state.players].sort((a,b)=>b.score-a.score);
-  document.getElementById("we-scores").innerHTML=sorted.map(p=>`<div class="score-row"><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="width:28px;height:28px;font-size:10px">${p.name.substring(0,2).toUpperCase()}</div><span>${esc(p.name)}</span></div><div class="score-pts">${p.score} pts</div></div>`).join('');
-  const current=state.currentWordIndex||0,total=state.totalWords||state.settings?.wordsPerGame||1;
-  document.getElementById("we-next-progress").textContent=`Round ${current}/${total} — encore ${total-current} mot${total-current>1?'s':''} à venir`;
-  document.getElementById("we-host-btn").style.display=isHost?"block":"none";
-  document.getElementById("we-wait").style.display=isHost?"none":"block";
+  const w = state.wordWinner;
+  const configs = {
+    civil: { emoji:"🎉", title:"Les Civils gagnent ce round !", color:"var(--success)", sub:"L'imposteur a été démasqué." },
+    mrwhite: { emoji:"🤍", title:"Mr White a deviné !", color:"var(--amber)", sub:"Il a trouvé le mot secret." },
+    undercover: { emoji:"🕵️", title:"L'Undercover survit !", color:"var(--danger)", sub:"Les imposteurs ont tenu." },
+  };
+  const c = configs[w] || configs.undercover;
+  document.getElementById("word-end-emoji").textContent = c.emoji;
+  document.getElementById("word-end-title").textContent = c.title;
+  document.getElementById("word-end-title").style.color = c.color;
+  document.getElementById("word-end-sub").textContent = c.sub;
+  document.getElementById("we-civil-word").textContent = state.civilWord || "—";
+  document.getElementById("we-uc-word").textContent = state.undercoverWord || "—";
+  const sorted = [...state.players].sort((a,b) => b.score - a.score);
+  document.getElementById("we-scores").innerHTML = sorted.map(p =>
+    `<div class="score-row">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="avatar" style="width:28px;height:28px;font-size:10px">${p.name.substring(0,2).toUpperCase()}</div>
+        <span>${esc(p.name)}</span>
+      </div>
+      <div class="score-pts">${p.score} pts</div>
+    </div>`).join('');
+  const current = state.currentWordIndex || 0, total = state.totalWords || state.settings?.wordsPerGame || 1;
+  document.getElementById("we-next-progress").textContent = `Round ${current}/${total} — encore ${total - current} mot${total-current>1?'s':''} à venir`;
+  document.getElementById("we-host-btn").style.display = isHost ? "block" : "none";
+  document.getElementById("we-wait").style.display = isHost ? "none" : "block";
 }
-function nextWord(){ws.send(JSON.stringify({type:"next_word"}));roleAcknowledged=false;}
+function nextWord() { ws.send(JSON.stringify({ type: "next_word" })); roleAcknowledged = false; }
 
-function renderEnd(isHost){
-  showScreen("screen-end");roleAcknowledged=false;
-  const w=state.winner,emoji=document.getElementById("winner-emoji"),title=document.getElementById("winner-title"),sub=document.getElementById("winner-sub");
-  if(w==="civil"){emoji.textContent="🎉";title.textContent="Les Civils gagnent !";title.style.color="var(--success)";sub.textContent="Tous les imposteurs ont été démasqués.";}
-  else if(w==="mrwhite"){emoji.textContent="🤍";title.textContent="Mr White gagne !";title.style.color="var(--amber)";sub.textContent="Il a deviné le mot secret des civils.";}
-  else{emoji.textContent="🕵️";title.textContent="L'Undercover gagne !";title.style.color="var(--danger)";sub.textContent="Les imposteurs ont survécu.";}
-  if(state.wordsRevealed&&state.civilWord){document.getElementById("words-reveal-end").style.display="block";document.getElementById("civil-word-end").textContent=state.civilWord;document.getElementById("uc-word-end").textContent=state.undercoverWord;}
-  else{document.getElementById("words-reveal-end").style.display="none";}
-  const sorted=[...state.players].sort((a,b)=>b.score-a.score);
-  document.getElementById("end-scores").innerHTML=sorted.map(p=>{const tags=[];if(p.isUndercover)tags.push('<span class="badge badge-uc">Undercover</span>');if(p.isMrWhite)tags.push('<span class="badge badge-mw">Mr White</span>');return`<div class="score-row"><div><div style="display:flex;align-items:center;gap:8px;"><div class="avatar ${p.isUndercover?'uc':p.isMrWhite?'mw':''}" style="width:32px;height:32px;font-size:11px">${p.name.substring(0,2).toUpperCase()}</div><span style="font-weight:500">${esc(p.name)}</span></div>${tags.length?`<div style="margin-left:40px;margin-top:4px">${tags.join(' ')}</div>`:''}</div><div class="score-pts">${p.score} pts</div></div>`;}).join('');
-  document.getElementById("end-host-controls").style.display=isHost?"block":"none";
-  document.getElementById("end-waiting").style.display=isHost?"none":"block";
+// ---- END ----
+function renderEnd(isHost) {
+  showScreen("screen-end");
+  roleAcknowledged = false;
+  const w = state.winner;
+  const configs = {
+    civil: { emoji:"🎉", title:"Les Civils gagnent !", color:"var(--success)", sub:"Tous les imposteurs ont été démasqués." },
+    mrwhite: { emoji:"🤍", title:"Mr White gagne !", color:"var(--amber)", sub:"Il a deviné le mot secret des civils." },
+    undercover: { emoji:"🕵️", title:"L'Undercover gagne !", color:"var(--danger)", sub:"Les imposteurs ont survécu." },
+  };
+  const c = configs[w] || configs.undercover;
+  document.getElementById("winner-emoji").textContent = c.emoji;
+  document.getElementById("winner-title").textContent = c.title;
+  document.getElementById("winner-title").style.color = c.color;
+  document.getElementById("winner-sub").textContent = c.sub;
+  if (state.wordsRevealed && state.civilWord) {
+    document.getElementById("words-reveal-end").style.display = "block";
+    document.getElementById("civil-word-end").textContent = state.civilWord;
+    document.getElementById("uc-word-end").textContent = state.undercoverWord;
+  } else { document.getElementById("words-reveal-end").style.display = "none"; }
+  const sorted = [...state.players].sort((a,b) => b.score - a.score);
+  document.getElementById("end-scores").innerHTML = sorted.map(p => {
+    const tags = [];
+    if (p.isUndercover) tags.push('<span class="badge badge-uc">Undercover</span>');
+    if (p.isMrWhite) tags.push('<span class="badge badge-mw">Mr White</span>');
+    return `<div class="score-row">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="avatar ${p.isUndercover?'uc':p.isMrWhite?'mw':''}" style="width:32px;height:32px;font-size:11px">${p.name.substring(0,2).toUpperCase()}</div>
+          <span style="font-weight:500">${esc(p.name)}</span>
+        </div>
+        ${tags.length ? `<div style="margin-left:40px;margin-top:4px">${tags.join(' ')}</div>` : ''}
+      </div>
+      <div class="score-pts">${p.score} pts</div>
+    </div>`;
+  }).join('');
+  document.getElementById("end-host-controls").style.display = isHost ? "block" : "none";
+  document.getElementById("end-waiting").style.display = isHost ? "none" : "block";
 }
-function nextRound(){customWordRows=[];ws.send(JSON.stringify({type:"next_round"}));}
+function nextRound() { customWordRows = []; ws.send(JSON.stringify({ type: "next_round" })); }
 
-function esc(str){return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-document.addEventListener("keydown",e=>{if(e.key!=="Enter")return;const id=document.querySelector(".screen.active")?.id;if(id==="screen-home"){document.getElementById("join-code").value.trim()?joinRoom():createRoom();}if(id==="screen-describe")submitDescription();if(id==="screen-mrwhite")submitMrWhiteGuess();});
+// ---- KEYBOARD SHORTCUTS ----
+document.addEventListener("keydown", e => {
+  if (e.key !== "Enter") return;
+  const id = document.querySelector(".screen.active")?.id;
+  if (id === "screen-home") { document.getElementById("join-code").value.trim() ? joinRoom() : createRoom(); }
+  if (id === "screen-describe") submitDescription();
+  if (id === "screen-mrwhite") submitMrWhiteGuess();
+});
 </script>
 </body>
 </html>
